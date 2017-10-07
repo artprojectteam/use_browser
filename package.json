@@ -2,8 +2,9 @@
   "name": "use_browser",
   "version": "1.0.0",
   "description": "Use Browser Information",
-  "main": "dist/use_browser.js",
+  "main": "dest/use_browser.js",
   "scripts": {
+    "build": "rollup -c rollup.config.js"
   },
   "repository": {
     "type": "git",
@@ -14,5 +15,15 @@
   "bugs": {
     "url": "https://github.com/artprojectteam/use_browser/issues"
   },
-  "homepage": "https://github.com/artprojectteam/use_browser#readme"
+  "homepage": "https://github.com/artprojectteam/use_browser#readme",
+  "engines": {
+    "node": ">= 8.6.0",
+    "npm": ">= 5.3.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "rollup": "^0.50.0",
+    "rollup-plugin-babel": "^3.0.2"
+  }
 }
