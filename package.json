@@ -1,0 +1,18 @@
+{
+  "name": "use_browser",
+  "version": "1.0.0",
+  "description": "Use Browser Information",
+  "main": "dist/use_browser.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artprojectteam/use_browser.git"
+  },
+  "author": "Nobuyuki Kondo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/artprojectteam/use_browser/issues"
+  },
+  "homepage": "https://github.com/artprojectteam/use_browser#readme"
+}
