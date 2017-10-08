@@ -1,5 +1,5 @@
 /*!
-Use Browser Information v1.0.0
+Use Browser Information v0.0.1
 Add class to html tag and use javascript variable
 
 Copyright (c) 2017 Nobuyuki Kondo
@@ -14,9 +14,7 @@ https://github.com/artprojectteam/use_browser
 }(this, (function () { 'use strict';
 
   var main = (function (ua, appv) {
-    return {
-      a: 'a'
-    };
+    return 'a';
   })(window.navigator.userAgent.toLowerCase(), window.navigator.appVersion.toLowerCase());
 
   return main;

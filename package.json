@@ -6,9 +6,12 @@
   "main": "dist/use_browser.js",
   "uglify": "dist/use_browser.min.js",
   "scripts": {
-    "start": "NODE_ENV=development rollup -c rollup.config.js --watch",
-    "build": "NODE_ENV=development rollup -c rollup.config.js",
-    "release": "NODE_ENV=production rollup -c rollup.config.js"
+    "start": "NODE_ENV=development npm-run-all -p _lint -p _rollup:w",
+    "build": "NODE_ENV=development npm-run-all -p _lint -p _rollup",
+    "release": "NODE_ENV=production npm-run-all -p _rollup",
+    "_lint": "eslint src/main.js",
+    "_rollup": "rollup -c rollup.config.js",
+    "_rollup:w": "rollup -c rollup.config.js --watch"
   },
   "repository": {
     "type": "git",
@@ -26,10 +29,14 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
     "babel-preset-env": "^1.6.0",
     "babel-preset-es2015-rollup": "^3.0.0",
     "babel-preset-stage-2": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
+    "cross-conf-env": "^1.1.2",
+    "eslint": "^4.8.0",
+    "npm-run-all": "^4.1.1",
     "rollup": "^0.50.0",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-uglify": "^2.0.1",
