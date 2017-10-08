@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/artprojectteam/use_browser",
   "engines": {
-    "node": ">= 8.6.0",
+    "node": ">= 6.11.0",
     "npm": ">= 5.3.0"
   },
   "devDependencies": {
