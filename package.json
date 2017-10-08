@@ -1,10 +1,14 @@
 {
   "name": "use_browser",
   "version": "1.0.0",
-  "description": "Use Browser Information",
-  "main": "dest/use_browser.js",
+  "title": "Use Browser Information",
+  "description": "Add class to html tag and use javascript variable",
+  "main": "dist/use_browser.js",
+  "uglify": "dist/use_browser.min.js",
   "scripts": {
-    "build": "rollup -c rollup.config.js"
+    "start": "NODE_ENV=development rollup -c rollup.config.js --watch",
+    "build": "NODE_ENV=development rollup -c rollup.config.js",
+    "release": "NODE_ENV=production rollup -c rollup.config.js"
   },
   "repository": {
     "type": "git",
@@ -15,15 +19,20 @@
   "bugs": {
     "url": "https://github.com/artprojectteam/use_browser/issues"
   },
-  "homepage": "https://github.com/artprojectteam/use_browser#readme",
+  "homepage": "https://github.com/artprojectteam/use_browser",
   "engines": {
     "node": ">= 8.6.0",
     "npm": ">= 5.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
     "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
     "rollup": "^0.50.0",
-    "rollup-plugin-babel": "^3.0.2"
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-uglify": "^2.0.1",
+    "uglify-save-license": "^0.4.1"
   }
 }
