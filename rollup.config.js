@@ -17,11 +17,15 @@ if(process.env.NODE_ENV === 'production'){
 
 export default {
   input: 'src/main.js',
-  output: {
+  output: [{
     file: dist,
     format: 'umd',
     indent: true
-  },
+  },{
+    file: 'demo/use_browser.js',
+    format: 'umd',
+    indent: true
+  }],
   name: 'UseBrowser',
   strict: true,
   sourceMap: false,
