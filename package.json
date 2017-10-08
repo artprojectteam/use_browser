@@ -6,9 +6,9 @@
   "main": "dist/use_browser.js",
   "uglify": "dist/use_browser.min.js",
   "scripts": {
-    "start": "NODE_ENV=development npm-run-all -p _lint -p _rollup:w",
+    "start": "NODE_ENV=development npm-run-all -p _rollup:w",
     "build": "NODE_ENV=development npm-run-all -p _lint -p _rollup",
-    "release": "NODE_ENV=production npm-run-all -p _rollup",
+    "release": "NODE_ENV=production npm-run-all -p _lint -p _rollup",
     "_lint": "eslint src/main.js",
     "_rollup": "rollup -c rollup.config.js",
     "_rollup:w": "rollup -c rollup.config.js --watch"
