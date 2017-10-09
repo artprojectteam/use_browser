@@ -9,5 +9,7 @@
     }]
   ],
   "compact": "false",
-  "plugins": []
+  "plugins": [
+    "external-helpers"
+  ]
 }

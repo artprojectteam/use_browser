@@ -5,7 +5,9 @@ import pkg from './package.json'
 
 const dist = process.env.NODE_ENV === 'production' ? pkg.uglify : pkg.main
 
-let plugins = [babel()]
+let plugins = [babel({
+  runtimeHelpers: true
+})]
 
 if(process.env.NODE_ENV === 'production'){
   plugins.push(uglify({
