@@ -182,7 +182,7 @@ https://github.com/artprojectteam/use_browser
 
 
     Core.isIndexSearch = function isIndexSearch(str) {
-      return this.ua.indexOf(str) >= 0;
+      return !!~this.ua.indexOf(str);
     };
 
     /**
@@ -193,7 +193,7 @@ https://github.com/artprojectteam/use_browser
 
 
     Core.isVersionSearch = function isVersionSearch(str) {
-      return this.appv.indexOf(str) >= 0;
+      return !!~this.appv.indexOf(str);
     };
 
     /**

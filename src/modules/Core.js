@@ -20,7 +20,7 @@ export default class Core {
    * @returns {boolean}
    */
   static isIndexSearch(str){
-    return this.ua.indexOf(str) >= 0
+    return !!~this.ua.indexOf(str)
   }
   
   /**
@@ -29,7 +29,7 @@ export default class Core {
    * @returns {boolean}
    */
   static isVersionSearch(str){
-    return this.appv.indexOf(str) >= 0
+    return !!~this.appv.indexOf(str)
   }
   
   /**
