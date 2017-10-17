@@ -279,6 +279,10 @@ https://github.com/artprojectteam/use_browser
     return _class;
   }();
 
+  /**
+   * get ie versions
+   * @returns {{msie: boolean, msie9: boolean, msie10: boolean, msie11: boolean, msie_edge: (boolean|*)}}
+   */
   var getIE = (function () {
     var str = 'msie';
     var msie = {
@@ -293,6 +297,10 @@ https://github.com/artprojectteam/use_browser
     return msie;
   });
 
+  /**
+   * get browser type
+   * @returns {{chrome: (*|boolean), mobile_chrome: (*|boolean), safari: (*|boolean), mobile_safari: (*|boolean), firefox: boolean, android_default: (*|boolean)}}
+   */
   var getBrowser = (function () {
     var is_chrome = Core.is_chrome && Core.is_safari && !Core.is_edge;
     var is_safari = Core.is_safari && !Core.is_chrome && !Core.is_edge;
@@ -307,6 +315,10 @@ https://github.com/artprojectteam/use_browser
     };
   });
 
+  /**
+   * browser engine
+   * @returns {{webkit: boolean, gecko: boolean}}
+   */
   var getEngine = (function () {
     return {
       webkit: Core.isIndexSearch('webkit/'), // Safari,Chrome
@@ -314,6 +326,10 @@ https://github.com/artprojectteam/use_browser
     };
   });
 
+  /**
+   * get tablet
+   * @returns {{iPad: boolean, android_tablet: (*|boolean)}}
+   */
   var getTablet = (function () {
     return {
       iPad: Core.isIndexSearch('ipad'),
@@ -321,6 +337,11 @@ https://github.com/artprojectteam/use_browser
     };
   });
 
+  /**
+   * get mobile
+   * @param is_android_tablet {boolean}
+   * @returns {{iPhone: boolean, iPod: boolean, android: (*|boolean)}}
+   */
   var getMobile = (function (is_android_tablet) {
     return {
       iPhone: Core.isIndexSearch('iphone'),
@@ -329,6 +350,12 @@ https://github.com/artprojectteam/use_browser
     };
   });
 
+  /**
+   * which device
+   * @param tablet {object}
+   * @param mobile {object}
+   * @returns {{tablet: boolean, mobile: boolean, desktop: boolean}}
+   */
   var getDevice = (function (tablet, mobile) {
     var is_tablet = Core.hasTrue(tablet);
     var is_mobile = Core.hasTrue(mobile);
@@ -340,6 +367,12 @@ https://github.com/artprojectteam/use_browser
     };
   });
 
+  /**
+   * get os
+   * @param tablet {object}
+   * @param mobile {object}
+   * @returns {{windows: boolean, osx: boolean, ios: *, android: *}}
+   */
   var getOS = (function (tablet, mobile) {
     return {
       windows: Core.isIndexSearch('windows'),
