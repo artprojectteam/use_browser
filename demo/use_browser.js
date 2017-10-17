@@ -7,4 +7,387 @@ License: MIT
 
 https://github.com/artprojectteam/use_browser
 */
-!function(e,n){"object"==typeof exports&&"undefined"!=typeof module?module.exports=n():"function"==typeof define&&define.amd?define(n):e.UseBrowser=n()}(this,function(){"use strict";!function(){function e(e){this.value=e}function n(n){function i(t,o){try{var s=n[t](o),a=s.value;a instanceof e?Promise.resolve(a.value).then(function(e){i("next",e)},function(e){i("throw",e)}):r(s.done?"return":"normal",s.value)}catch(e){r("throw",e)}}function r(e,n){switch(e){case"return":t.resolve({value:n,done:!0});break;case"throw":t.reject(n);break;default:t.resolve({value:n,done:!1})}(t=t.next)?i(t.key,t.arg):o=null}var t,o;this._invoke=function(e,n){return new Promise(function(r,s){var a={key:e,arg:n,resolve:r,reject:s,next:null};o?o=o.next=a:(t=o=a,i(e,n))})},"function"!=typeof n.return&&(this.return=void 0)}"function"==typeof Symbol&&Symbol.asyncIterator&&(n.prototype[Symbol.asyncIterator]=function(){return this}),n.prototype.next=function(e){return this._invoke("next",e)},n.prototype.throw=function(e){return this._invoke("throw",e)},n.prototype.return=function(e){return this._invoke("return",e)}}();var e=function(e,n){if(!(e instanceof n))throw new TypeError("Cannot call a class as a function")},n=function(){function e(e,n){for(var i=0;i<n.length;i++){var r=n[i];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(n,i,r){return i&&e(n.prototype,i),r&&e(n,r),n}}(),i=function(){function n(){e(this,n)}return n.initialize=function(e,n){this.ua=e,this.appv=n,this.is_edge=this.isIndexSearch("edge"),this.is_chrome=this.isIndexSearch("chrome"),this.is_safari=this.isIndexSearch("safari"),this.is_mobile=this.isIndexSearch("mobile"),this.is_android=this.isIndexSearch("android")},n.isIndexSearch=function(e){return!!~this.ua.indexOf(e)},n.isVersionSearch=function(e){return!!~this.appv.indexOf(e)},n.hasTrue=function(e){for(var n in e)if(!0===e[n])return!0;return!1},n.concatArr=function(){for(var e=Array.prototype.slice.call(arguments),n={},i=0,r=e.length;i<r;i++)!function(i,r){var t=e[i];Object.keys(t).forEach(function(e){t.hasOwnProperty(e)&&(n[e]=t[e])})}(i);return n},n}(),r=function(){function i(n){e(this,i),this.no_prefix=n,this._html_class=["js"]}return n(i,[{key:"html_class",set:function(e){var n=this;Object.keys(e).forEach(function(i){var r=e[i]?i:n.no_prefix+i;n._html_class.push(r)})},get:function(){return this._html_class}}]),i}(),t=function(){var e={msie:!1,msie9:i.isVersionSearch("msie 9."),msie10:i.isVersionSearch("msie 10."),msie11:i.isIndexSearch("trident/7"),msie_edge:i.isIndexSearch("applewebkit")&&i.is_edge};return e.msie=i.hasTrue(e),e},o=function(){var e=i.is_chrome&&i.is_safari&&!i.is_edge,n=i.is_safari&&!i.is_chrome&&!i.is_edge;return{chrome:e,mobile_chrome:e&&i.is_mobile,safari:n&&!i.is_mobile,mobile_safari:n&&i.is_mobile,firefox:i.isIndexSearch("firefox"),android_default:i.is_android&&!i.is_chrome}},s=function(){return{webkit:i.isIndexSearch("webkit/"),gecko:i.isIndexSearch("gecko/")||i.isIndexSearch("fxios/")}},a=function(){return{iPad:i.isIndexSearch("ipad"),android_tablet:i.is_android&&!!i.is_mobile||i.isIndexSearch("a1_07")||i.isIndexSearch("sc-01c")}},c=function(e){return{iPhone:i.isIndexSearch("iphone"),iPod:i.isIndexSearch("ipod"),android:i.is_android&&i.is_mobile&&!e}},u=function(e,n){var r=i.hasTrue(e),t=i.hasTrue(n);return{tablet:r,mobile:t,desktop:!r&&!t}},h=function(e,n){return{windows:i.isIndexSearch("windows"),osx:i.isIndexSearch("intel mac os x"),ios:e.iPad||n.iPhone||n.iPod,android:i.is_android}};return function(e,n){var f=new r("no-");i.initialize(e,n);var l=i.concatArr(t(),o());f.html_class=l;var d=s();f.html_class=d;var m=a();f.html_class=m;var _=c(m.android_tablet);f.html_class=_;var v=u(m,_);f.html_class=v;var p=h(m,_);f.html_class=p;var x=f.html_class.join(" ");return document.getElementsByTagName("html")[0].className+=" "+x,{ua:e,app_version:n,browser:l,engine:d,tablet:m,mobile:_,device:v,os:p}}(window.navigator.userAgent.toLowerCase(),window.navigator.appVersion.toLowerCase())});
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.UseBrowser = factory());
+}(this, (function () { 'use strict';
+
+  var asyncGenerator = function () {
+    function AwaitValue(value) {
+      this.value = value;
+    }
+
+    function AsyncGenerator(gen) {
+      var front, back;
+
+      function send(key, arg) {
+        return new Promise(function (resolve, reject) {
+          var request = {
+            key: key,
+            arg: arg,
+            resolve: resolve,
+            reject: reject,
+            next: null
+          };
+
+          if (back) {
+            back = back.next = request;
+          } else {
+            front = back = request;
+            resume(key, arg);
+          }
+        });
+      }
+
+      function resume(key, arg) {
+        try {
+          var result = gen[key](arg);
+          var value = result.value;
+
+          if (value instanceof AwaitValue) {
+            Promise.resolve(value.value).then(function (arg) {
+              resume("next", arg);
+            }, function (arg) {
+              resume("throw", arg);
+            });
+          } else {
+            settle(result.done ? "return" : "normal", result.value);
+          }
+        } catch (err) {
+          settle("throw", err);
+        }
+      }
+
+      function settle(type, value) {
+        switch (type) {
+          case "return":
+            front.resolve({
+              value: value,
+              done: true
+            });
+            break;
+
+          case "throw":
+            front.reject(value);
+            break;
+
+          default:
+            front.resolve({
+              value: value,
+              done: false
+            });
+            break;
+        }
+
+        front = front.next;
+
+        if (front) {
+          resume(front.key, front.arg);
+        } else {
+          back = null;
+        }
+      }
+
+      this._invoke = send;
+
+      if (typeof gen.return !== "function") {
+        this.return = undefined;
+      }
+    }
+
+    if (typeof Symbol === "function" && Symbol.asyncIterator) {
+      AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
+        return this;
+      };
+    }
+
+    AsyncGenerator.prototype.next = function (arg) {
+      return this._invoke("next", arg);
+    };
+
+    AsyncGenerator.prototype.throw = function (arg) {
+      return this._invoke("throw", arg);
+    };
+
+    AsyncGenerator.prototype.return = function (arg) {
+      return this._invoke("return", arg);
+    };
+
+    return {
+      wrap: function (fn) {
+        return function () {
+          return new AsyncGenerator(fn.apply(this, arguments));
+        };
+      },
+      await: function (value) {
+        return new AwaitValue(value);
+      }
+    };
+  }();
+
+
+
+
+
+  var classCallCheck = function (instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
+  };
+
+  var createClass = function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  }();
+
+  var Core = function () {
+    function Core() {
+      classCallCheck(this, Core);
+    }
+
+    /**
+     * Core data initialize
+     * @param ua {string}
+     * @param appv {string}
+     */
+    Core.initialize = function initialize(ua, appv) {
+      this.ua = ua;
+      this.appv = appv;
+      this.is_edge = this.isIndexSearch('edge');
+      this.is_chrome = this.isIndexSearch('chrome');
+      this.is_safari = this.isIndexSearch('safari');
+      this.is_mobile = this.isIndexSearch('mobile');
+      this.is_android = this.isIndexSearch('android');
+    };
+
+    /**
+     * String index search
+     * @param str
+     * @returns {boolean}
+     */
+
+
+    Core.isIndexSearch = function isIndexSearch(str) {
+      return !!~this.ua.indexOf(str);
+    };
+
+    /**
+     * Version search
+     * @param str
+     * @returns {boolean}
+     */
+
+
+    Core.isVersionSearch = function isVersionSearch(str) {
+      return !!~this.appv.indexOf(str);
+    };
+
+    /**
+     * Does true exist in the object
+     * @param obj {object}
+     * @returns {boolean}
+     */
+
+
+    Core.hasTrue = function hasTrue(obj) {
+      for (var key in obj) {
+        if (obj[key] === true) return true;
+      }
+      return false;
+    };
+
+    /**
+     * array concat
+     * @returns {{}}
+     */
+
+
+    Core.concatArr = function concatArr() {
+      var args = Array.prototype.slice.call(arguments);
+      var res = {};
+
+      var _loop = function _loop(i, iLen) {
+        var obj = args[i];
+        Object.keys(obj).forEach(function (r) {
+          if (obj.hasOwnProperty(r)) res[r] = obj[r];
+        });
+      };
+
+      for (var i = 0, iLen = args.length; i < iLen; i++) {
+        _loop(i, iLen);
+      }
+
+      return res;
+    };
+
+    return Core;
+  }();
+
+  /**
+   * html tag add class
+   */
+  var _class = function () {
+    function _class(prefix) {
+      classCallCheck(this, _class);
+
+      this.no_prefix = prefix;
+      this._html_class = ['js'];
+    }
+
+    /**
+     * setup class strings
+     * @param obj {*} object array
+     */
+
+
+    createClass(_class, [{
+      key: 'html_class',
+      set: function set$$1(obj) {
+        var _this = this;
+
+        Object.keys(obj).forEach(function (keys) {
+          var target = obj[keys];
+          var res = target ? keys : _this.no_prefix + keys;
+
+          _this._html_class.push(res);
+        });
+      }
+
+      /**
+       * get class string array
+       * @returns {Array}
+       */
+      ,
+      get: function get$$1() {
+        return this._html_class;
+      }
+    }]);
+    return _class;
+  }();
+
+  var getIE = (function () {
+    var str = 'msie';
+    var msie = {
+      msie: false,
+      msie9: Core.isVersionSearch(str + ' 9.'),
+      msie10: Core.isVersionSearch(str + ' 10.'),
+      msie11: Core.isIndexSearch('trident/7'),
+      msie_edge: Core.isIndexSearch('applewebkit') && Core.is_edge
+    };
+
+    msie.msie = Core.hasTrue(msie);
+    return msie;
+  });
+
+  var getBrowser = (function () {
+    var is_chrome = Core.is_chrome && Core.is_safari && !Core.is_edge;
+    var is_safari = Core.is_safari && !Core.is_chrome && !Core.is_edge;
+
+    return {
+      chrome: is_chrome,
+      mobile_chrome: is_chrome && Core.is_mobile,
+      safari: is_safari && !Core.is_mobile,
+      mobile_safari: is_safari && Core.is_mobile,
+      firefox: Core.isIndexSearch('firefox'),
+      android_default: Core.is_android && !Core.is_chrome
+    };
+  });
+
+  var getEngine = (function () {
+    return {
+      webkit: Core.isIndexSearch('webkit/'), // Safari,Chrome
+      gecko: Core.isIndexSearch('gecko/') || Core.isIndexSearch('fxios/') // Firefox(fxiosはiOS版Firefox)
+    };
+  });
+
+  var getTablet = (function () {
+    return {
+      iPad: Core.isIndexSearch('ipad'),
+      android_tablet: Core.is_android && !!Core.is_mobile || Core.isIndexSearch('a1_07') || Core.isIndexSearch('sc-01c') // A1-07, SC-01C is Tablet, But wrote "mobile"(2013.02 now)
+    };
+  });
+
+  var getMobile = (function (is_android_tablet) {
+    return {
+      iPhone: Core.isIndexSearch('iphone'),
+      iPod: Core.isIndexSearch('ipod'),
+      android: Core.is_android && Core.is_mobile && !is_android_tablet
+    };
+  });
+
+  var getDevice = (function (tablet, mobile) {
+    var is_tablet = Core.hasTrue(tablet);
+    var is_mobile = Core.hasTrue(mobile);
+
+    return {
+      tablet: is_tablet,
+      mobile: is_mobile,
+      desktop: !is_tablet && !is_mobile
+    };
+  });
+
+  var getOS = (function (tablet, mobile) {
+    return {
+      windows: Core.isIndexSearch('windows'),
+      osx: Core.isIndexSearch('intel mac os x'),
+      ios: tablet.iPad || mobile.iPhone || mobile.iPod,
+      android: Core.is_android
+    };
+  });
+
+  var main = (function (ua, appv) {
+    var createClass = new _class('no-');
+    Core.initialize(ua, appv);
+
+    var browser = Core.concatArr(getIE(), getBrowser());
+    createClass.html_class = browser;
+
+    var engine = getEngine();
+    createClass.html_class = engine;
+
+    var tablet = getTablet();
+    createClass.html_class = tablet;
+
+    var mobile = getMobile(tablet.android_tablet);
+    createClass.html_class = mobile;
+
+    var device = getDevice(tablet, mobile);
+    createClass.html_class = device;
+
+    var os = getOS(tablet, mobile);
+    createClass.html_class = os;
+
+    // add class
+    var _cls = createClass.html_class.join(' ');
+    var _html = document.getElementsByTagName('html');
+    _html[0].className += ' ' + _cls;
+
+    return {
+      ua: ua,
+      app_version: appv,
+      browser: browser,
+      engine: engine,
+      tablet: tablet,
+      mobile: mobile,
+      device: device,
+      os: os
+    };
+  })(window.navigator.userAgent.toLowerCase(), window.navigator.appVersion.toLowerCase());
+
+  return main;
+
+})));
