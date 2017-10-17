@@ -254,15 +254,6 @@ https://github.com/artprojectteam/use_browser
      */
 
 
-    /**
-     * add class to html tags
-     */
-    _class.prototype.addClasses = function addClasses() {
-      var cls = this.html_class.join(' ');
-      var html = document.getElementsByTagName('html');
-      html[0].className += ' ' + cls;
-    };
-
     createClass(_class, [{
       key: 'html_class',
       set: function set$$1(obj) {
@@ -414,7 +405,9 @@ https://github.com/artprojectteam/use_browser
     createClass.html_class = os;
 
     // add class
-    createClass.addClasses();
+    var _cls = createClass.html_class.join(' ');
+    var _html = document.getElementsByTagName('html');
+    _html[0].className += ' ' + _cls;
 
     return {
       ua: ua,

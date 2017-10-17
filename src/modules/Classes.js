@@ -25,13 +25,4 @@ export default class {
    * @returns {Array}
    */
   get html_class(){return this._html_class}
-  
-  /**
-   * add class to html tags
-   */
-  addClasses(){
-    const cls = this.html_class.join(' ')
-    const html = document.getElementsByTagName('html')
-    html[0].className += ` ${cls}`
-  }
 }

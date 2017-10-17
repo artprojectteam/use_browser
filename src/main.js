@@ -31,7 +31,9 @@ export default ((ua, appv)=>{
   createClass.html_class = os
   
   // add class
-  createClass.addClasses()
+  const _cls = createClass.html_class.join(' ')
+  const _html = document.getElementsByTagName('html')
+  _html[0].className += ` ${_cls}`
   
   return {
     ua: ua,
