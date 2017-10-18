@@ -171,10 +171,10 @@
             elem += create(true_cls, key, _obj)
             break
           case 'object':
-            Object.keys(_obj).forEach(function(key){
-              var _res = _obj[key]
+            Object.keys(_obj).forEach(function(k){
+              var _res = _obj[k]
               var add_cls = _res ? true_cls : ''
-              elem += create(add_cls, key, _res)
+              elem += create(add_cls, key + '.' + k, _res)
             })
             break
         }
