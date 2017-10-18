@@ -9,7 +9,7 @@ export default ()=>{
   const is_safari = Core.is_safari && !Core.is_chrome && !Core.is_edge
   
   return {
-    chrome: is_chrome,
+    chrome: is_chrome && !Core.is_mobile,
     mobile_chrome: is_chrome && Core.is_mobile,
     safari: is_safari && !Core.is_mobile,
     mobile_safari: is_safari && Core.is_mobile,
