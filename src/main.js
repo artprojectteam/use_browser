@@ -1,33 +1,33 @@
 import Core from './modules/Core'
 import Classes from './modules/Classes'
-import getIE from './lists/ie'
-import getBrowser from './lists/browser'
-import getEngine from './lists/engine'
-import getTablet from './lists/tablet'
-import getMobile from './lists/mobile'
-import getDevice from './lists/device'
-import getOS from './lists/os'
+import getIeBooleanList from './lists/ie'
+import getBrowserBooleanList from './lists/browser'
+import getEngineBooleanList from './lists/engine'
+import getTabletBooleanList from './lists/tablet'
+import getMobileBooleanList from './lists/mobile'
+import getDeviceBooleanList from './lists/device'
+import getOsBooleanList from './lists/os'
 
 export default ((ua, appv)=>{
   const createClass = new Classes('no-')
   Core.initialize(ua, appv)
   
-  const browser = Core.concatArr(getIE(), getBrowser())
+  const browser = Core.concatArr(getIeBooleanList(), getBrowserBooleanList())
   createClass.html_class = browser
   
-  const engine = getEngine()
+  const engine = getEngineBooleanList()
   createClass.html_class = engine
   
-  const tablet = getTablet()
+  const tablet = getTabletBooleanList()
   createClass.html_class = tablet
   
-  const mobile = getMobile(tablet.android_tablet)
+  const mobile = getMobileBooleanList(tablet.android_tablet)
   createClass.html_class = mobile
   
-  const device = getDevice(tablet, mobile)
+  const device = getDeviceBooleanList(tablet, mobile)
   createClass.html_class = device
   
-  const os = getOS(tablet, mobile)
+  const os = getOsBooleanList(tablet, mobile)
   createClass.html_class = os
   
   // add class

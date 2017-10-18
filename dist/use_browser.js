@@ -283,7 +283,7 @@ https://github.com/artprojectteam/use_browser
    * get ie versions
    * @returns {{msie: boolean, msie9: boolean, msie10: boolean, msie11: boolean, msie_edge: (boolean|*)}}
    */
-  var getIE = (function () {
+  var getIeBooleanList = (function () {
     var str = 'msie';
     var msie = {
       msie: false,
@@ -301,7 +301,7 @@ https://github.com/artprojectteam/use_browser
    * get browser type
    * @returns {{chrome: (*|boolean), mobile_chrome: (*|boolean), safari: (*|boolean), mobile_safari: (*|boolean), firefox: boolean, android_default: (*|boolean)}}
    */
-  var getBrowser = (function () {
+  var getBrowserBooleanList = (function () {
     var is_chrome = Core.is_chrome && Core.is_safari && !Core.is_edge;
     var is_safari = Core.is_safari && !Core.is_chrome && !Core.is_edge;
 
@@ -319,7 +319,7 @@ https://github.com/artprojectteam/use_browser
    * browser engine
    * @returns {{webkit: boolean, gecko: boolean}}
    */
-  var getEngine = (function () {
+  var getEngineBooleanList = (function () {
     return {
       webkit: Core.isIndexSearch('webkit/'), // Safari,Chrome
       gecko: Core.isIndexSearch('gecko/') || Core.isIndexSearch('fxios/') // Firefox(fxiosはiOS版Firefox)
@@ -330,7 +330,7 @@ https://github.com/artprojectteam/use_browser
    * get tablet
    * @returns {{iPad: boolean, android_tablet: (*|boolean)}}
    */
-  var getTablet = (function () {
+  var getTabletBooleanList = (function () {
     return {
       iPad: Core.isIndexSearch('ipad'),
       android_tablet: Core.is_android && !!Core.is_mobile || Core.isIndexSearch('a1_07') || Core.isIndexSearch('sc-01c') // A1-07, SC-01C is Tablet, But wrote "mobile"(2013.02 now)
@@ -342,7 +342,7 @@ https://github.com/artprojectteam/use_browser
    * @param is_android_tablet {boolean}
    * @returns {{iPhone: boolean, iPod: boolean, android: (*|boolean)}}
    */
-  var getMobile = (function (is_android_tablet) {
+  var getMobileBooleanList = (function (is_android_tablet) {
     return {
       iPhone: Core.isIndexSearch('iphone'),
       iPod: Core.isIndexSearch('ipod'),
@@ -356,7 +356,7 @@ https://github.com/artprojectteam/use_browser
    * @param mobile {object}
    * @returns {{tablet: boolean, mobile: boolean, desktop: boolean}}
    */
-  var getDevice = (function (tablet, mobile) {
+  var getDeviceBooleanList = (function (tablet, mobile) {
     var is_tablet = Core.hasTrue(tablet);
     var is_mobile = Core.hasTrue(mobile);
 
@@ -373,7 +373,7 @@ https://github.com/artprojectteam/use_browser
    * @param mobile {object}
    * @returns {{windows: boolean, osx: boolean, ios: *, android: *}}
    */
-  var getOS = (function (tablet, mobile) {
+  var getOsBooleanList = (function (tablet, mobile) {
     return {
       windows: Core.isIndexSearch('windows'),
       osx: Core.isIndexSearch('intel mac os x'),
@@ -386,22 +386,22 @@ https://github.com/artprojectteam/use_browser
     var createClass = new _class('no-');
     Core.initialize(ua, appv);
 
-    var browser = Core.concatArr(getIE(), getBrowser());
+    var browser = Core.concatArr(getIeBooleanList(), getBrowserBooleanList());
     createClass.html_class = browser;
 
-    var engine = getEngine();
+    var engine = getEngineBooleanList();
     createClass.html_class = engine;
 
-    var tablet = getTablet();
+    var tablet = getTabletBooleanList();
     createClass.html_class = tablet;
 
-    var mobile = getMobile(tablet.android_tablet);
+    var mobile = getMobileBooleanList(tablet.android_tablet);
     createClass.html_class = mobile;
 
-    var device = getDevice(tablet, mobile);
+    var device = getDeviceBooleanList(tablet, mobile);
     createClass.html_class = device;
 
-    var os = getOS(tablet, mobile);
+    var os = getOsBooleanList(tablet, mobile);
     createClass.html_class = os;
 
     // add class
