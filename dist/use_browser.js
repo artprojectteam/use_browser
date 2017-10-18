@@ -205,7 +205,7 @@ https://github.com/artprojectteam/use_browser
 
     Core.hasTrue = function hasTrue(obj) {
       for (var key in obj) {
-        if (obj[key] === true) return true;
+        if (obj.hasOwnProperty(key) && obj[key]) return true;
       }
       return false;
     };
@@ -223,7 +223,7 @@ https://github.com/artprojectteam/use_browser
       var _loop = function _loop(i, iLen) {
         var obj = args[i];
         Object.keys(obj).forEach(function (r) {
-          if (obj.hasOwnProperty(r)) res[r] = obj[r];
+          res[r] = obj[r];
         });
       };
 
@@ -306,7 +306,7 @@ https://github.com/artprojectteam/use_browser
     var is_safari = Core.is_safari && !Core.is_chrome && !Core.is_edge;
 
     return {
-      chrome: is_chrome,
+      chrome: is_chrome && !Core.is_mobile,
       mobile_chrome: is_chrome && Core.is_mobile,
       safari: is_safari && !Core.is_mobile,
       mobile_safari: is_safari && Core.is_mobile,

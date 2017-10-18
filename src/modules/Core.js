@@ -39,7 +39,7 @@ export default class Core {
    */
   static hasTrue(obj){
     for(let key in obj){
-      if(obj[key] === true) return true
+      if(obj.hasOwnProperty(key) && obj[key]) return true
     }
     return false
   }
@@ -55,7 +55,7 @@ export default class Core {
     for(let i = 0, iLen = args.length; i < iLen; i++){
       const obj = args[i]
       Object.keys(obj).forEach(r=>{
-        if(obj.hasOwnProperty(r)) res[r] = obj[r]
+        res[r] = obj[r]
       })
     }
     
