@@ -1,0 +1,188 @@
+<!doctype html>
+<html id="html">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="google" content="notranslate">
+  <title>Use Browser Information</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css">
+  <style>
+    html {
+      font-size: 10px;
+    }
+
+    body {
+      font: 1.8rem/1 'helvetica Neue', sans-serif;
+    }
+
+    .inner-pd {
+      padding: 2rem;
+    }
+
+    .header {
+      background: #eeeeee;
+    }
+
+    .header-title {
+      margin: 0;
+      padding: 1rem 0;
+    }
+
+    .footer {
+      background: #000000;
+      color: #ffffff;
+    }
+
+    .footer-copy {
+      font-size: 1.2rem;
+    }
+
+    .container {
+      display: flex;
+    }
+
+    .info {
+      width: 50%;
+      box-sizing: border-box;
+    }
+
+    .info:first-child {
+      padding-right: 2rem;
+    }
+
+    .info:last-child {
+      padding-left: 2rem;
+    }
+
+    .info-title {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .info-list {
+      margin: 0 0 0 1em;
+      padding: 0;
+    }
+
+    .info-list > li {
+      margin-bottom: 2rem;
+      line-height: 1.5;
+      color: #cccccc;
+    }
+
+    .true {
+      font-weight: bold;
+      color: #25a844;
+    }
+
+    .true-title {
+      font-weight: bold;
+      color: #000000;
+    }
+
+    @media screen and (max-width: 767px) {
+      .container {
+        display: block;
+      }
+
+      .info {
+        width: 100%;
+      }
+
+      .info:first-child {
+        padding-right: 0;
+      }
+
+      .info:last-child {
+        padding-left: 0;
+      }
+
+      .info:last-child:before {
+        display: block;
+        content: "";
+        width: 100%;
+        height: 1px;
+        border-top: 1px solid #cccccc;
+        margin: 5rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header inner-pd">
+  <h1 class="header-title">Use Browser Information</h1>
+</header>
+
+<article class="container inner-pd">
+  <section class="info">
+    <h2 class="info-title">Add Class List</h2>
+    <ul id="info-addClass" class="info-list"></ul>
+  </section>
+  <!-- /.info -->
+
+
+  <section class="info">
+    <h2 class="info-title">Use JavaScript</h2>
+    <ul id="info-useJs" class="info-list"></ul>
+  </section>
+  <!-- /.info -->
+</article>
+
+
+<footer class="footer inner-pd">
+  <small class="footer-copy">&copy; Nobuyuki Kondo.</small>
+</footer>
+
+
+<script src="use_browser.js"></script>
+<script>
+  (function(ub){
+    /* html class */
+    document.getElementById('info-addClass').innerHTML = (function(){
+      var _cls = document.getElementById('html').getAttribute('class').split(' ')
+      var elem = ''
+
+      for(var i = 0, iLen = _cls.length; i < iLen; i++){
+        var obj = _cls[i]
+        if(obj === '') continue
+
+        var add_class = /no-/.test(obj) ? '' : ' class="true"'
+        elem += '<li><span' + add_class + '>' + obj + '</span></li>'
+      }
+
+      return elem
+    })()
+
+    /* use javascript */
+    document.getElementById('info-useJs').innerHTML = (function(){
+      var true_cls = ' class="true"'
+      var elem = ''
+      var create = function(cls, key, obj){
+        var title_cls = obj ? ' class="true-title"' : ''
+        return '<li><span' + title_cls + '>UseBrowser.' + key + ': </span><span' + cls + '>' + obj + '</span>'
+      }
+
+      Object.keys(ub).forEach(function(key){
+        var _obj = ub[key]
+        switch(typeof _obj){
+          case 'string':
+            elem += create(true_cls, key, _obj)
+            break
+          case 'object':
+            Object.keys(_obj).forEach(function(k){
+              var _res = _obj[k]
+              var add_cls = _res ? true_cls : ''
+              elem += create(add_cls, key + '.' + k, _res)
+            })
+            break
+        }
+      })
+
+      return elem
+    })()
+  })(UseBrowser)
+</script>
+</body>
+</html>

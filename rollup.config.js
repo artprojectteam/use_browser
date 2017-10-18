@@ -5,7 +5,10 @@ import pkg from './package.json'
 
 const dist = process.env.NODE_ENV === 'production' ? pkg.uglify : pkg.main
 
-let plugins = [babel()]
+let plugins = [babel({
+  runtimeHelpers: true,
+  exclude: 'node_modules/**'
+})]
 
 if(process.env.NODE_ENV === 'production'){
   plugins.push(uglify({
@@ -17,11 +20,15 @@ if(process.env.NODE_ENV === 'production'){
 
 export default {
   input: 'src/main.js',
-  output: {
+  output: [{
     file: dist,
     format: 'umd',
     indent: true
-  },
+  },{
+    file: 'demo/use_browser.js',
+    format: 'umd',
+    indent: true
+  }],
   name: 'UseBrowser',
   strict: true,
   sourceMap: false,
