@@ -1,6 +1,6 @@
 {
   "name": "use-browser",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "title": "Use Browser Information",
   "description": "Add class to html tag and use javascript variable",
   "main": "dist/use_browser.js",

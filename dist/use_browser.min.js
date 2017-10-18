@@ -1,5 +1,5 @@
 /*!
-Use Browser Information v0.0.1
+Use Browser Information v1.0.0
 Add class to html tag and use javascript variable
 
 Copyright (c) 2017 Nobuyuki Kondo
